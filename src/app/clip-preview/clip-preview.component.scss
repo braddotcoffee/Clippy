@@ -1,0 +1,62 @@
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  width: 640px;
+  background: rgba(42, 43, 50, 0.6);
+  margin: 1em;
+  border-radius: 5px;
+}
+
+.title {
+  font-size: 24pt;
+}
+
+.copy-link,
+.timestamp,
+.title {
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  color: #fff;
+  padding-top: 3%;
+}
+
+.copy-link,
+.timestamp {
+  font-size: 18pt;
+  padding-bottom: 3%;
+}
+
+.timestamp,
+.title {
+  padding-left: 3%;
+}
+
+.days {
+  color: gray;
+  padding-left: 0.3em;
+}
+
+.clock {
+  color: rgb(251, 150, 36);
+  font-size: 18pt;
+}
+
+.copy-link {
+  text-align: right;
+  padding-right: 3%;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.clock-container {
+  width: 1em;
+  margin: 0px;
+}
+
+.timestamp {
+  display: flex;
+  justify-content: flex-start;
+}

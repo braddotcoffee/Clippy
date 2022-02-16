@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import S3 from 'aws-sdk/clients/s3'
+import { ObjectRetrieverService } from './object-retriever.service';
 
 @Component({
   selector: 'app-root',
@@ -7,40 +7,32 @@ import S3 from 'aws-sdk/clients/s3'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Clippy';
-  globalParams = {
-    Bucket: "woohoojin-clips",
-    Delimeter: "/"
-  }
-  s3Client = new S3();
+  videoUrls: string[] = []
 
   ngOnInit(): void {
-    const objects: any[] = []
-    this.listObjectsWithPrefix("mp4/", objects)
+    this.objectRetriverService.getAllObjectsInBucket((objects: any[]) => { this.allObjectsRetrievedCallback(objects) })
   }
+  title = 'Clippy';
 
-  listObjectsWithPrefix(prefix: string, objects: any[]): void {
-    const params = {
-      Bucket: this.globalParams.Bucket,
-      Delimiter: this.globalParams.Delimeter,
-      Prefix: prefix
-    }
-    this.s3Client.makeUnauthenticatedRequest("listObjectsV2", params, (err, data) => {
-      if (err) console.error(err)
-      console.log(data)
-      if (data.Contents.length > 0) {
-        data.Contents.forEach((object: any) => objects.push(object))
-      }
-      if (data.CommonPrefixes.length > 0) {
-        data.CommonPrefixes.forEach((folderName: any) => this.listObjectsWithPrefix(folderName.Prefix, objects))
-      } else {
-        this.allObjectsRetrievedCallback(objects)
-      }
-    })
-  }
+  constructor(private objectRetriverService: ObjectRetrieverService) { }
 
-  allObjectsRetrievedCallback(objects: string[]): void {
+  private allObjectsRetrievedCallback(objects: any[]): void {
     console.log(objects)
+    console.log(objects[0])
+    const objectsToRetrieve = objects.sort(
+      (a, b) => a.LastModified < b.LastModified ? 1 : a.LastModified > b.LastModified ? -1 : 0
+    ).slice(0, 6);
+    objectsToRetrieve.forEach((object: any) => {
+      if (!object.Key.includes(".mp4")) return
+      this.videoUrls.push(
+        `https://s3.woohoojin.dev/${object.Key}`
+      )
+    })
+    this.objectRetriverService.getObjectContent(objects[17].Key, this.getObjectCallback)
+  }
+
+  private getObjectCallback(object: any): void {
+    console.log(object)
   }
 }
 

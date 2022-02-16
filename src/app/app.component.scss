@@ -1,0 +1,21 @@
+.preview-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  //background: rgb(12, 12, 13);
+}
+
+.column-container {
+  width: 640px;
+  display: flex;
+  flex-direction: column;
+}
+
+.grow {
+  transition: all .2s ease-in-out;
+}
+
+.grow:hover {
+  transform: scale(1.03);
+  cursor: pointer;
+}

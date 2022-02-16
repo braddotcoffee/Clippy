@@ -1,4 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-image: url("https://wallpapers.hector.me/wavey/desktop/Wavey%20Shadow%20Dark.jpg");
+  background-size: cover;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+iframe {
+  border-width: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.vertical-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
