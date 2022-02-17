@@ -6,8 +6,8 @@
       <div class="vertical-center clock-container">
         <mat-icon class="clock">schedule</mat-icon>
       </div>
-      <span class="days">
-        <ng-container *ngIf="ago !== ''">{{ago}}</ng-container>
+      <span *ngIf="ago !== ''" class="days vertical-center">
+        {{ago}}
       </span>
     </div>
     <span class="copy-link">
