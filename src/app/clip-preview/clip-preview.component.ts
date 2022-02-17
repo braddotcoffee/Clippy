@@ -20,9 +20,14 @@ export class ClipPreviewComponent implements OnInit {
     const diff = now.getTime() - this.videoDate.getTime();
     // Print the diff in terms of X Minutes ago, or X Days ago if it's >= 1 day
     if (diff < 1000 * 60 * 60) {
-      this.ago = `${Math.floor(diff / (1000 * 60))} minutes ago`;
+      // Singular "minute" for 1 minute
+      // Plural "minutes" for > 1 minute
+      this.ago = `${Math.floor(diff / (1000 * 60))} minute${Math.floor(diff / (1000 * 60)) === 1 ? '' : 's'} ago`;
     } else if (diff < 1000 * 60 * 60 * 24) {
-      this.ago = `${Math.floor(diff / (1000 * 60 * 60))} hours ago`;
+      // Singular "hour" for 1 hour
+      // Plural "hours" for > 1 hour
+      this.ago = `${Math.floor(diff / (1000 * 60 * 60))} hour${Math.floor(diff / (1000 * 60 * 60)) > 1 ? 's' : ''} ago`;
+
     } else {
       // Singular "day" for 1 day
       // Plural "days" for > 1 day
