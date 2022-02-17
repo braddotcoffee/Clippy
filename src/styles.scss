@@ -1,8 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 html,
 body {
   height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+  background: black;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  box-shadow: inset 0 0 8px 8px #212226;
+  border: solid 3px transparent;
+}
+::-webkit-scrollbar-track {
+  border-radius: 8px;
+  box-shadow: inset 0 0 8px 8px rgb(0 0 0 / 20%);
+  border: solid 3px transparent;
 }
 
 body {
@@ -10,9 +26,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-image: url("https://wallpapers.hector.me/wavey/desktop/Wavey%20Shadow%20Dark.jpg");
   background-size: cover;
+  background-attachment: fixed;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 iframe {
   border-width: 0px;

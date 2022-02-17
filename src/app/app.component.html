@@ -1,7 +1,7 @@
 <!-- TODO: Header with search -->
 <div class="preview-container">
   <div class="column-container">
-    <app-clip-preview class="grow" *ngFor="let url of videoUrls" [videoUrl]="url">
+    <app-clip-preview class="grow" *ngFor="let url of videoUrls" [videoUrl]="url.url" [videoDate]="url.date">
     </app-clip-preview>
   </div>
 </div>

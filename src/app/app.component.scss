@@ -6,7 +6,8 @@
 }
 
 .column-container {
-  width: 640px;
+  position: relative;
+  top: 10vh;
   display: flex;
   flex-direction: column;
 }
@@ -17,5 +18,4 @@
 
 .grow:hover {
   transform: scale(1.03);
-  cursor: pointer;
 }

@@ -1,17 +1,19 @@
 <div class="preview-container">
-    <!-- TODO: Fullscreen button doesn't work on main menu -->
-    <iframe width="640px" height="360px" *ngIf="videoUrl !== ''" [src]="getVideoUrl()"></iframe>
-    <span class="title">{{getTitle()}}</span>
-    <div class="card-content">
-        <div class="timestamp">
-            <div class="vertical-center clock-container">
-                <mat-icon class="clock">schedule</mat-icon>
-            </div>
-            <!-- TODO: Parse timestamps -->
-            <span class="days">7 days ago</span>
-        </div>
-        <span class="copy-link">
-            <mat-icon>content_copy</mat-icon>
-        </span>
+  <iframe allowfullscreen width="640px" height="360px" *ngIf="videoUrl !== ''" [src]="videoUrl | safeUrl"></iframe>
+  <span class="title">{{getTitle()}}</span>
+  <div class="card-content">
+    <div class="timestamp">
+      <div class="vertical-center clock-container">
+        <mat-icon class="clock">schedule</mat-icon>
+      </div>
+      <span class="days">
+        <ng-container *ngIf="ago !== ''">{{ago}}</ng-container>
+      </span>
     </div>
+    <span class="copy-link">
+      <button matTooltip="Copy Link" (click)="copyLink()" matTooltipPosition="above" mat-stroked-button color="accent">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+    </span>
+  </div>
 </div>
