@@ -12,10 +12,12 @@ export class ClipPreviewComponent implements OnInit {
   @Input() videoUrl: string = '';
   @Input() videoDate: Date = new Date();
   ago: string = '';
+  title: string = '';
 
   constructor(private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
+    this.title = this.getTitle();
     const now = new Date();
     const diff = now.getTime() - this.videoDate.getTime();
     // Print the diff in terms of X Minutes ago, or X Days ago if it's >= 1 day
@@ -33,7 +35,6 @@ export class ClipPreviewComponent implements OnInit {
       // Plural "days" for > 1 day
       this.ago = `${Math.floor(diff / (1000 * 60 * 60 * 24))} day${Math.floor(diff / (1000 * 60 * 60 * 24)) > 1 ? 's' : ''} ago`;
     }
-    console.log(this.videoDate);
   }
 
   copyLink() {
@@ -56,6 +57,6 @@ export class ClipPreviewComponent implements OnInit {
 
   getTitle() {
     const parts = this.videoUrl.split('/');
-    return parts[parts.length - 1].replace(/_/g, ' ').replace('.mp4', '');
+    return decodeURIComponent(parts[parts.length - 1].replace(/_/g, ' ').replace('.mp4', ''));
   }
 }

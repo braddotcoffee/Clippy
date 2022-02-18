@@ -1,6 +1,8 @@
 <div class="preview-container">
-  <iframe allowfullscreen width="640px" height="360px" *ngIf="videoUrl !== ''" [src]="videoUrl | safeUrl"></iframe>
-  <span class="title">{{getTitle()}}</span>
+  <video allowfullscreen controls width="640px" height="360px" *ngIf="videoUrl !== ''">
+    <source [src]="videoUrl | safeUrl" type="video/mp4">
+  </video>
+  <span class="title">{{title}}</span>
   <div class="card-content">
     <div class="timestamp">
       <div class="vertical-center clock-container">

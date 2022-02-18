@@ -1,3 +1,44 @@
+.toolbar {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.5s ease;
+  transition: border-bottom 0.5s ease;
+  display: flex;
+  justify-content: center;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.icon {
+  height: 40px;
+}
+
+.toolbar-container {
+  width:640px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search {
+  font-size: 14px;
+  width: 300px;
+}
+
+.notTop {
+  background-color: rgba(19, 19, 29, 1);
+  border-bottom: 3px solid #fb9624;
+}
+
+.isTop {
+  background-color: rgba(0, 0, 0, 0);
+  border-bottom: 3px solid rgba(0, 0, 0, 0);
+}
+
 .preview-container {
   width: 100%;
   display: flex;
@@ -13,7 +54,7 @@
 }
 
 .grow {
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .grow:hover {

@@ -1,4 +1,16 @@
-<!-- TODO: Header with search -->
+<mat-toolbar [ngClass]="top ? 'isTop' : 'notTop'" class="toolbar" color="accent">
+  <div class="toolbar-container">
+    <div class="vertical">
+      <img class="icon" src="favicon.ico" />
+    </div>
+    <!-- TODO: Implement search -->
+    <mat-form-field class="search">
+      <mat-label>Search for clips (feature coming soon!)...</mat-label>
+      <input matInput type="text">
+    </mat-form-field>
+  </div>
+
+</mat-toolbar>
 <div class="preview-container">
   <div class="column-container">
     <app-clip-preview class="grow" *ngFor="let url of videoUrls" [videoUrl]="url.url" [videoDate]="url.date">
@@ -6,4 +18,3 @@
   </div>
 </div>
 <router-outlet></router-outlet>
-<!-- TODO: Show more button -->
