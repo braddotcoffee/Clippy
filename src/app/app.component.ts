@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   nextVideoIndex: number = 3;
   top: boolean = true;
   searchQuery: string = "";
+  videoUrlLookup = new Map<string, any>();
 
   ngOnInit(): void {
     this.objectRetrieverService.getAllObjectsInBucket((objects: any[]) => {
@@ -46,10 +47,12 @@ export class AppComponent implements OnInit {
       last = encodeURIComponent(last);
       const url = split.slice(0, split.length - 1).join('/') + '/' + last;
 
-      this.allVideos.push({
+      const urlMetadata = {
         url: `https://s3.woohoojin.dev/${url}`,
         date: object.LastModified,
-      });
+      };
+      this.allVideos.push(urlMetadata);
+      this.videoUrlLookup.set(object.Key, urlMetadata);
 
       this.videoUrls = this.allVideos.slice(0, this.nextVideoIndex);
       this.initialVideoUrls = this.videoUrls;
@@ -103,9 +106,7 @@ export class AppComponent implements OnInit {
 
     const toRender: any[] = [];
     keys.forEach(key => {
-      this.allVideos.forEach((videoMetadata: any) => {
-        if (decodeURIComponent(videoMetadata.url).includes(key)) toRender.push(videoMetadata)
-      })
+      toRender.push(this.videoUrlLookup.get(key)!)
     })
 
     this.videoUrls = toRender;
