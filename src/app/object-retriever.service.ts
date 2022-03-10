@@ -48,6 +48,7 @@ export class ObjectRetrieverService {
       if (currentIndex < queue.length - 1) {
         this.listObjectsWithPrefix(queue[currentIndex + 1], objects, currentIndex + 1, queue, callback);
       } else {
+        console.log(objects)
         callback(objects)
       }
     })

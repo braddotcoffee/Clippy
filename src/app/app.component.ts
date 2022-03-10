@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ObjectRetrieverService } from './object-retriever.service';
+import { SearchService } from './search.service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,12 @@ import { ObjectRetrieverService } from './object-retriever.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  initialVideoUrls: any[] = [];
   videoUrls: any[] = [];
   allVideos: any[] = [];
   nextVideoIndex: number = 3;
   top: boolean = true;
+  searchQuery: string = "";
 
   ngOnInit(): void {
     this.objectRetrieverService.getAllObjectsInBucket((objects: any[]) => {
@@ -19,7 +22,10 @@ export class AppComponent implements OnInit {
   }
   title = 'Clippy';
 
-  constructor(private objectRetrieverService: ObjectRetrieverService) {}
+  constructor(
+    private objectRetrieverService: ObjectRetrieverService,
+    private searchService: SearchService
+  ) { }
 
   private allObjectsRetrievedCallback(objects: any[]): void {
     console.log(objects);
@@ -28,11 +34,11 @@ export class AppComponent implements OnInit {
       a.LastModified < b.LastModified
         ? 1
         : a.LastModified > b.LastModified
-        ? -1
-        : 0
+          ? -1
+          : 0
     );
     objectsToRetrieve.forEach((object: any) => {
-      if (!object.Key.includes('.mp4')) return;
+      if (!object.Key.endsWith('.mp4')) return;
 
       const split = object.Key.split('/');
       let last = split[split.length - 1];
@@ -46,14 +52,18 @@ export class AppComponent implements OnInit {
       });
 
       this.videoUrls = this.allVideos.slice(0, this.nextVideoIndex);
+      this.initialVideoUrls = this.videoUrls;
     });
     this.objectRetrieverService.getObjectContent(
       objects[17].Key,
       this.getObjectCallback
     );
+
+    console.log(this.searchService.getTitleMap(objects))
   }
 
   private loadOneMoreVideo() {
+    if (this.searchQuery !== "") return;
     if (this.allVideos.length > this.nextVideoIndex) {
       this.videoUrls.push(this.allVideos[this.nextVideoIndex]);
       this.nextVideoIndex++;
@@ -79,5 +89,25 @@ export class AppComponent implements OnInit {
     if (pos >= max - 100) {
       this.loadOneMoreVideo();
     }
+  }
+
+  search(): void {
+    if (this.searchQuery === "") {
+      this.videoUrls = this.initialVideoUrls;
+      return;
+    }
+
+    const keys = this.searchService.getKeysForSearchWord(
+      this.searchService.prepareSearchQuery(this.searchQuery)
+    );
+
+    const toRender: any[] = [];
+    keys.forEach(key => {
+      this.allVideos.forEach((videoMetadata: any) => {
+        if (decodeURIComponent(videoMetadata.url).includes(key)) toRender.push(videoMetadata)
+      })
+    })
+
+    this.videoUrls = toRender;
   }
 }

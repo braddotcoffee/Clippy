@@ -12,6 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SafeUrlPipe } from './safe-url-pipe';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [SafeUrlPipe, AppComponent, ClipPreviewComponent],
@@ -19,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
@@ -29,4 +31,4 @@ import { MatInputModule } from '@angular/material/input';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

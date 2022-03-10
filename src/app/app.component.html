@@ -5,8 +5,8 @@
     </div>
     <!-- TODO: Implement search -->
     <mat-form-field class="search">
-      <mat-label>Search for clips (feature coming soon!)...</mat-label>
-      <input matInput type="text">
+      <mat-label>Search for clips</mat-label>
+      <input [(ngModel)]="searchQuery" matInput type="text" (keydown.enter)="search()">
     </mat-form-field>
   </div>
 
